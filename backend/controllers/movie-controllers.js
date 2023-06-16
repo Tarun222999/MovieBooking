@@ -1,5 +1,7 @@
 import jwt from 'jsonwebtoken'
 import Movie from '../models/Movies'
+import mongoose from 'mongoose';
+import Admin from '../models/Admin';
 export const addMovies = async (req, res, next) => {
     const extractedToken = req.headers.authorization.split(" ")[1];
     if (!extractedToken && extractedToken.trim() === '') {
@@ -36,6 +38,8 @@ export const addMovies = async (req, res, next) => {
     let movie;
 
     try {
+
+
         movie = new Movie({
             description,
             releaseDate: new Date(`${releaseDate}`),
@@ -47,7 +51,16 @@ export const addMovies = async (req, res, next) => {
         })
 
 
-        movie = await movie.save();
+        //creating a session
+        const session = await mongoose.startSession();
+        const adminUser = await Admin.findById(adminId);
+        session.startTransaction();
+
+        await movie.save({ session });
+        adminUser.addedMovies.push(movie)
+        await adminUser.save({ session });
+
+        await session.commitTransaction();
 
 
     } catch (error) {

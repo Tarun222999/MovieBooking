@@ -59,3 +59,18 @@ export const adminLogin = async (req, res, next) => {
         .status(200)
         .json({ message: "Authentication Complete", token, id: existingAdmin._id });
 };
+
+
+
+export const getAdmins = async (req, res, next) => {
+    let admins;
+    try {
+        admins = await Admin.find();
+
+    } catch (error) {
+        console.log(error)
+    }
+
+    if (!admins) return res.status(500).json({ message: "fetching all admins failed" });
+    return res.status(200).json({ admins })
+}

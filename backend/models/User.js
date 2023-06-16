@@ -16,6 +16,12 @@ const userSchema = new mongoose.Schema({
         required: true,
         minLength: 4,
     },
+    bookings: [
+        {
+            type: mongoose.Types.ObjectId,
+            ref: "Booking"
+        }
+    ]
 });
 
 
