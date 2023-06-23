@@ -68,8 +68,8 @@ export const addMovies = async (req, res, next) => {
 
     }
 
-    if (!movie) res.status(500).json({ message: 'Request movie adding failed' })
-    res.status(201).json({ movie })
+    if (!movie) return res.status(500).json({ message: 'Request movie adding failed' })
+    return res.status(201).json({ movie })
 }
 
 export const getMovies = async (req, res, next) => {
@@ -85,7 +85,7 @@ export const getMovies = async (req, res, next) => {
     }
 
 
-    if (!movies) res.status(500).json({ message: 'Movie fetching failed' })
+    if (!movies) return res.status(500).json({ message: 'Movie fetching failed' })
 
     return res.status(200).json({ movies })
 }

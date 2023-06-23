@@ -34,6 +34,12 @@ export const addUser = async (req, res, next) => {
     const hashedPassword = bcrypt.hashSync(password);
     let user;
     try {
+        let existuser = await User.findOne({ email });
+        if (existuser) {
+            return res.status(404).json({
+                message: "user already exists"
+            })
+        }
         user = new User({ name, email, password: hashedPassword });
         user = await user.save();
     } catch (error) {
@@ -45,7 +51,7 @@ export const addUser = async (req, res, next) => {
             message: "unexpected error occured"
         })
     }
-    return res.status(201).json({ user })
+    return res.status(201).json({ id: user._id })
 }
 
 
@@ -130,7 +136,7 @@ export const login = async (req, res, next) => {
         return res.status(400).json({ message: 'Incorect password' });
     }
 
-    return res.status(200).json({ message: "login succesful" })
+    return res.status(200).json({ message: "login succesful", id: existuser._id })
 
 
 }
