@@ -1,5 +1,5 @@
 import express from 'express'
-import { addUser, deleteUser, getAllUsers, getBookingsUser, login, updateUser } from '../controllers/user-controllers';
+import { addUser, deleteUser, getAllUsers, getBookingsUser, login, updateUser, getUserById } from '../controllers/user-controllers';
 
 
 const userRouter = express.Router();
@@ -12,7 +12,7 @@ userRouter.post('/signup', addUser)
 userRouter.post('/login', login)
 userRouter.put('/:id', updateUser)
 userRouter.delete('/:id', deleteUser)
-
+userRouter.get("/:id", getUserById);
 userRouter.get('/bookings/:id', getBookingsUser)
 
 export default userRouter

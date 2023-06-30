@@ -31,7 +31,7 @@ const HomePage = () => {
                 flexWrap={"wrap"}
                 display="flex"
                 justifyContent={"center"}>
-                {movies && movies.map((movie) => <MovieItem id={movie.id} title={movie.title}
+                {movies && movies.map((movie) => <MovieItem id={movie._id} title={movie.title}
                     posterUrl={movie.posterUrl}
                     releaseDate={movie.releaseDate}
                     key={movie.id} />)}

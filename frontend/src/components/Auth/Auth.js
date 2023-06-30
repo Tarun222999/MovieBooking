@@ -3,11 +3,12 @@ import AuthForm from './AuthForm'
 import { sendUserAuthRequest } from '../../api-helpers/api-helpers';
 import { useDispatch } from 'react-redux';
 import { userActions } from '../../store';
+import { useNavigate } from 'react-router-dom';
 
 const Auth = () => {
     const dispatch = useDispatch();
 
-
+    const navigate = useNavigate();
     const onResRecieved = (data) => {
         console.log(data);
         if (localStorage.getItem('adminId')) {
@@ -15,6 +16,8 @@ const Auth = () => {
         }
         dispatch(userActions.login())
         localStorage.setItem("userId", data.id);
+        navigate("/");
+
     }
     const getData = (data) => {
         console.log("from auth");

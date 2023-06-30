@@ -12,6 +12,7 @@ const userSlice = createSlice({
 
         },
         logout(state) {
+            localStorage.removeItem('userId');
             state.isLoggedIn = false;
         },
     }
@@ -31,6 +32,8 @@ const adminSlice = createSlice({
 
         },
         logout(state) {
+            localStorage.removeItem('admiId');
+            localStorage.removeItem('token');
             state.isLoggedIn = false;
         },
     }
